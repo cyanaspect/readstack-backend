@@ -21,10 +21,10 @@
 import Route from "@ioc:Adonis/Core/Route";
 
 Route.post("/users", "UsersController.create");
-Route.get("/users", "UsersController.list");
+Route.get("/users", "UsersController.list").middleware("auth");
 Route.get("/users/:id", "UsersController.retrieve");
-Route.put("/users/:id", "UsersController.update");
-Route.delete("/users/:id", "UsersController.delete");
+Route.put("/users/:id", "UsersController.update").middleware("auth");
+Route.delete("/users/:id", "UsersController.delete").middleware("auth");
 
 Route.post("/stacks", "StacksController.create").middleware("auth");
 Route.get("/stacks", "StacksController.list");

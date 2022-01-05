@@ -79,7 +79,7 @@ export default class UsersController {
     await user.save();
 
     return ctx.response.status(200).json({
-      message: "User updated successfully",
+      message: "User password updated successfully",
     });
   }
 
@@ -90,6 +90,10 @@ export default class UsersController {
       return ctx.response.status(404).json({
         message: "User not found",
       });
+    }
+
+    if (ctx.params.id !== ctx.auth.id) {
+      return ctx.response.status(401);
     }
 
     await user.delete();

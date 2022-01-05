@@ -97,10 +97,9 @@ export default class StacksController {
         message: "Stack not found",
       });
     }
-    console.log("delete attempted");
-    console.log(stack);
+
     await stack.delete();
-    console.log("delete done");
+
     return ctx.response.status(200).json({
       message: "Stack deleted successfully",
     });
