@@ -1,3 +1,4 @@
+import Hash from "@ioc:Adonis/Core/Hash";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import { rules, schema } from "@ioc:Adonis/Core/Validator";
 import User from "App/Models/User";
@@ -44,9 +45,17 @@ export default class UsersController {
   }
 
   public async update({ request, response, params }: HttpContextContract) {
+    // update password
     const data = await request.validate({
       schema: schema.create({
-        password: schema.string({}, [rules.required(), rules.maxLength(255)]),
+        old_password: schema.string({}, [
+          rules.required(),
+          rules.maxLength(255),
+        ]),
+        new_password: schema.string({}, [
+          rules.required(),
+          rules.maxLength(255),
+        ]),
       }),
     });
 
@@ -58,7 +67,15 @@ export default class UsersController {
       });
     }
 
-    user.password = data.password;
+    const verified = await Hash.verify(user.password, data.old_password);
+
+    if (!verified) {
+      return response.status(401).json({
+        message: "Username or password incorrect",
+      });
+    }
+
+    user.password = await Hash.make(data.new_password);
     await user.save();
 
     return response.status(200).json({
