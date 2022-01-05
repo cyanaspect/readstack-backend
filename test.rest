@@ -1,0 +1,80 @@
+###
+POST http://localhost:3333/register/ 
+content-type: application/json
+
+{
+  "username": "user2", 
+  "email": "user2@gmail.com", 
+  "password": "123"
+}
+
+###
+POST http://localhost:3333/login/ 
+content-type: application/json
+
+{
+  "username": "authTest",  
+  "password": "123"
+}
+
+
+
+
+###
+POST http://localhost:3333/stacks/ 
+content-type: application/json
+Authorization: 2
+
+{
+  "name": "Software Engineering"
+}
+
+
+###
+POST http://localhost:3333/books/ 
+content-type: application/json
+Authorization: 2
+
+{
+  "title": "ecks",
+  "author": "dee", 
+  "stack_id": 2, 
+  "cover_photo_url": "https://external-preview.redd.it/x3W_tPGBToPGjhcrWquMJiDxXFwsTX3yCeAqomZkjxY.png?auto=webp&s=c2fcff59adb0d468306e4fb6367fa387a455186e"
+}
+
+
+###
+GET http://localhost:3333/users
+
+###
+GET http://localhost:3333/stacks/?username=user1
+
+
+###
+GET http://localhost:3333/books
+
+
+
+###
+PUT http://localhost:3333/stacks/2
+content-type: application/json
+Authorization: 2
+
+{
+  "name": "xd"
+}
+
+
+
+###
+DELETE http://localhost:3333/users/1
+
+
+###
+DELETE http://localhost:3333/stacks/2
+Authorization: 2
+
+
+###
+DELETE http://localhost:3333/books/2
+Authorization: 2
