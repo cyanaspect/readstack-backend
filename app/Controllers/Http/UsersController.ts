@@ -8,17 +8,17 @@ export default class UsersController {
     return await User.all();
   }
 
-  public async retrieve({ response, params }: HttpContextContract) {
-    const user = await User.findOrFail(params.id);
+  public async retrieve(ctx: HttpContextContract) {
+    const user = await User.findOrFail(ctx.params.id);
     if (!user) {
-      return response.status(404).json({
+      return ctx.response.status(404).json({
         message: "User not found",
       });
     }
   }
 
-  public async create({ request, response }: HttpContextContract) {
-    const data = await request.validate({
+  public async create(ctx: HttpContextContract) {
+    const data = await ctx.request.validate({
       schema: schema.create({
         username: schema.string({ trim: true }, [
           rules.required(),
@@ -38,15 +38,15 @@ export default class UsersController {
       password: data.password,
     });
 
-    return response.status(200).json({
+    return ctx.response.status(200).json({
       message: "User created successfully",
       data: user,
     });
   }
 
-  public async update({ request, response, params }: HttpContextContract) {
+  public async update(ctx: HttpContextContract) {
     // update password
-    const data = await request.validate({
+    const data = await ctx.request.validate({
       schema: schema.create({
         old_password: schema.string({}, [
           rules.required(),
@@ -59,10 +59,10 @@ export default class UsersController {
       }),
     });
 
-    const user = await User.findBy("user_id", params.id);
+    const user = await User.find(ctx.auth.id);
 
     if (!user) {
-      return response.status(404).json({
+      return ctx.response.status(404).json({
         message: "User not found",
       });
     }
@@ -70,7 +70,7 @@ export default class UsersController {
     const verified = await Hash.verify(user.password, data.old_password);
 
     if (!verified) {
-      return response.status(401).json({
+      return ctx.response.status(401).json({
         message: "Username or password incorrect",
       });
     }
@@ -78,23 +78,23 @@ export default class UsersController {
     user.password = await Hash.make(data.new_password);
     await user.save();
 
-    return response.status(200).json({
+    return ctx.response.status(200).json({
       message: "User updated successfully",
     });
   }
 
-  public async delete({ response, params }: HttpContextContract) {
-    const user = await User.find(params.id);
+  public async delete(ctx: HttpContextContract) {
+    const user = await User.find(ctx.params.id);
 
     if (!user) {
-      return response.status(404).json({
+      return ctx.response.status(404).json({
         message: "User not found",
       });
     }
 
     await user.delete();
 
-    return response.status(200).json({
+    return ctx.response.status(200).json({
       message: "User deleted successfully",
     });
   }

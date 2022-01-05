@@ -1,5 +1,5 @@
 ###
-POST http://localhost:3333/register/ 
+POST http://readstack-backend.herokuapp.com/register/ 
 content-type: application/json
 
 {
@@ -9,7 +9,7 @@ content-type: application/json
 }
 
 ###
-POST http://localhost:3333/login/ 
+POST http://readstack-backend.herokuapp.com/login/ 
 content-type: application/json
 
 {
@@ -21,7 +21,7 @@ content-type: application/json
 
 
 ###
-POST http://localhost:3333/stacks/ 
+POST http://readstack-backend.herokuapp.com/stacks/ 
 content-type: application/json
 Authorization: 2
 
@@ -31,7 +31,7 @@ Authorization: 2
 
 
 ###
-POST http://localhost:3333/books/ 
+POST http://readstack-backend.herokuapp.com/books/ 
 content-type: application/json
 Authorization: 2
 
@@ -44,37 +44,38 @@ Authorization: 2
 
 
 ###
-GET http://localhost:3333/users
+GET http://readstack-backend.herokuapp.com/users
 
 ###
-GET http://localhost:3333/stacks/?username=user1
-
-
-###
-GET http://localhost:3333/books
-
+GET http://readstack-backend.herokuapp.com/stacks/?username=user1
 
 
 ###
-PUT http://localhost:3333/stacks/2
+GET http://readstack-backend.herokuapp.com/books
+
+
+
+###
+PUT http://readstack-backend.herokuapp.com/users/4
 content-type: application/json
-Authorization: 2
+Authorization: 4
 
 {
-  "name": "xd"
+  "old_password": "123", 
+  "new_password": "1234"
 }
 
 
 
 ###
-DELETE http://localhost:3333/users/1
+DELETE http://readstack-backend.herokuapp.com/users/1
 
 
 ###
-DELETE http://localhost:3333/stacks/2
+DELETE http://readstack-backend.herokuapp.com/stacks/2
 Authorization: 2
 
 
 ###
-DELETE http://localhost:3333/books/2
+DELETE http://readstack-backend.herokuapp.com/books/2
 Authorization: 2
