@@ -59,7 +59,7 @@ export default class UsersController {
       }),
     });
 
-    const user = await User.findBy("user_id", params.userId);
+    const user = await User.findBy("user_id", params.id);
 
     if (!user) {
       return response.status(404).json({
