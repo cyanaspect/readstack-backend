@@ -38,7 +38,6 @@ export default class AuthController {
     }
 
     const verified = await Hash.verify(user.password, data.password);
-
     if (!verified) {
       return response.status(401).json({
         message: "Username or password incorrect",
