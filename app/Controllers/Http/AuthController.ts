@@ -91,13 +91,4 @@ export default class AuthController {
       },
     });
   }
-
-  // Make middlware
-  // Ref: https://docs.adonisjs.com/guides/middleware#middleware-classes
-  // Get token from request Authorization header
-  // Ref: https://docs.adonisjs.com/guides/request#request-headers
-  // Check if token is valid
-  // Find user by token in database
-  // Add user to context
-  // Ref: https://docs.adonisjs.com/guides/context#extending-context
 }
