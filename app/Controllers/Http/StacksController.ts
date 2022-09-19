@@ -41,7 +41,6 @@ export default class StacksController {
   }
 
   public async create(ctx: HttpContextContract) {
-    // ref: https://docs.adonisjs.com/guides/validator/introduction
 
     const data = await ctx.request.validate({
       schema: schema.create({
@@ -54,7 +53,7 @@ export default class StacksController {
 
     const stack = await Stack.create({
       name: data.name,
-      userId: ctx.auth.id,
+      userId: ctx.auth.user?.id,
     });
 
     return ctx.response.status(200).json({
@@ -75,7 +74,7 @@ export default class StacksController {
 
     const stack = await Stack.find(ctx.params.id);
 
-    if (!stack || ctx.auth.id !== stack.userId) {
+    if (!stack || ctx.auth.user?.id !== stack.userId) {
       return ctx.response.status(404).json({
         message: "Stack not found",
       });
@@ -92,7 +91,7 @@ export default class StacksController {
   public async delete(ctx: HttpContextContract) {
     const stack = await Stack.find(ctx.params.id);
 
-    if (!stack || ctx.auth.id !== stack.userId) {
+    if (!stack || ctx.auth.user?.id !== stack.userId) {
       return ctx.response.status(404).json({
         message: "Stack not found",
       });

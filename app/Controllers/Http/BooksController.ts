@@ -8,7 +8,6 @@ export default class BooksController {
     const query = request.qs();
     let bookQuery = Book.query();
 
-    // no 404 error for privacy purpose
     if (query.stack_id) {
       bookQuery.where("stack_id", query.stack_id);
     }
@@ -36,8 +35,6 @@ export default class BooksController {
   }
 
   public async create(ctx: HttpContextContract) {
-    // ref: https://docs.adonisjs.com/guides/validator/introduction/
-    // after validation, the type of the properties will change (rather than any)
     const data = await ctx.request.validate({
       schema: schema.create({
         title: schema.string({ trim: true }, [
@@ -58,7 +55,7 @@ export default class BooksController {
 
     const stack = await Stack.findBy("id", data.stack_id);
 
-    if (ctx.auth.id !== stack?.userId) {
+    if (ctx.auth.user?.id !== stack?.userId) {
       return ctx.response.status(404).json({
         message: "Stack not found",
       });
@@ -88,7 +85,7 @@ export default class BooksController {
 
     const stack = await Stack.find(book.stackId);
 
-    if (ctx.auth.id !== stack?.userId) {
+    if (ctx.auth.user?.id !== stack?.userId) {
       // user has attempted to delete stack that he doesn't own
       return ctx.response.status(404).json({
         message: "Book not found",

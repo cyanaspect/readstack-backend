@@ -59,7 +59,7 @@ export default class UsersController {
       }),
     });
 
-    const user = await User.find(ctx.auth.id);
+    const user = await User.find(ctx.auth.user?.id);
 
     if (!user) {
       return ctx.response.status(404).json({
@@ -92,7 +92,7 @@ export default class UsersController {
       });
     }
 
-    if (ctx.params.id !== ctx.auth.id) {
+    if (ctx.params.id !== ctx.auth.user?.id) {
       return ctx.response.status(401);
     }
 

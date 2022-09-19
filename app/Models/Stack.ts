@@ -9,7 +9,6 @@ export default class Stack extends BaseModel {
   @column()
   public name: string;
 
-  // note: Adonis will convert camelCase to snake_case in models (but not in validate!)
   @column()
   public userId: number;
 

@@ -6,7 +6,7 @@ export default class Books extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.integer("stack_id").references("id").inTable("stacks");
+      table.integer("stack_id").references("id").inTable("stacks").onDelete("CASCADE");
       table.string("title");
       table.string("author");
       table.string("cover_photo_url");

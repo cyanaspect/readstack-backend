@@ -1,14 +1,14 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
 
-export default class Users extends BaseSchema {
-  protected tableName = "users";
+export default class Stacks extends BaseSchema {
+  protected tableName = "stacks";
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.string("username").unique();
-      table.string("email");
-      table.string("password");
+      table.integer("user_id").references("id").inTable("users").onDelete("CASCADE");
+      table.string("name");
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

@@ -1,7 +1,7 @@
-import User from "App/Models/User";
+import { AuthContract } from "@ioc:Adonis/Addons/Auth";
 
 declare module "@ioc:Adonis/Core/HttpContext" {
   interface HttpContextContract {
-    auth: User;
+    auth: AuthContract;
   }
 }

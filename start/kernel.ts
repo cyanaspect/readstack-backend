@@ -43,5 +43,5 @@ Server.middleware.register([
 |
 */
 Server.middleware.registerNamed({
-  auth: () => import("App/middleware/GetAndVerifyToken"),
+  auth: () => import("App/middleware/Auth"),
 });
